@@ -1,0 +1,308 @@
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#690364,#690437,#ef5350); 
+   /* background:linear-gradient(135deg,#b71c1c,#e53935,#ef5350); */
+    overflow:hidden;
+    }
+    
+    .cards{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+    }
+    
+    .card{
+    background:rgba(255,253,240,0.95);
+    width:320px;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    text-align:center;
+    }
+    
+    .intro{font-size:1.4rem;color:#b71c1c;font-weight:bold;}
+    .quote{font-size:1rem;margin:6px 0;}
+    #timer{font-size:1.4rem;font-weight:bold;margin-top:10px;}
+    
+    /* GIRASOL */
+    .flower-container{
+    position:relative;
+    width:120px;
+    height:220px;
+    margin:auto;
+    }
+    
+    .stem{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    width:6px;
+    height:0;
+    background:#2e7d32;
+    transform:translateX(-50%);
+    animation:growStem 2s forwards;
+    }
+    
+    @keyframes growStem{
+    to{height:140px;}
+    }
+    
+    .sunflower-head{
+    position:absolute;
+    bottom:140px;
+    left:50%;
+    width:50px;
+    height:50px;
+    background:#5d4037;
+    border-radius:50%;
+    transform:translateX(-50%) scale(0);
+    animation:showCenter 1s 2s forwards;
+    }
+    
+    @keyframes showCenter{
+    to{transform:translateX(-50%) scale(1);}
+    }
+    
+    /* pétalos del girasol */
+    .sunflower-head::before{
+    content:"";
+    position:absolute;
+    top:-12px;
+    left:-12px;
+    right:-12px;
+    bottom:-12px;
+    background:
+    radial-gradient(circle at 50% 0,#fbc02d 12px,transparent 13px),
+    radial-gradient(circle at 100% 50%,#fbc02d 12px,transparent 13px),
+    radial-gradient(circle at 50% 100%,#fbc02d 12px,transparent 13px),
+    radial-gradient(circle at 0 50%,#fbc02d 12px,transparent 13px),
+    radial-gradient(circle at 80% 20%,#fbc02d 12px,transparent 13px),
+    radial-gradient(circle at 20% 80%,#fbc02d 12px,transparent 13px),
+    radial-gradient(circle at 20% 20%,#fbc02d 12px,transparent 13px),
+    radial-gradient(circle at 80% 80%,#fbc02d 12px,transparent 13px);
+    border-radius:50%;
+    opacity:0;
+    animation:showPetals 1s 2.4s forwards;
+    }
+    
+    @keyframes showPetals{
+    to{opacity:1;}
+    }
+    
+    /* ✨ pétalos volando con viento */
+    .flower-petal{
+    position:absolute;
+    width:12px;
+    height:24px;
+    background:radial-gradient(circle,#fff176,#fbc02d);
+    border-radius:60% 40% 60% 40%;
+    pointer-events:none;
+    animation:windMove linear forwards;
+    }
+    
+    @keyframes windMove{
+    0%{
+    transform:translate(0,0) rotate(0deg);
+    opacity:1;
+    }
+    100%{
+    transform:translate(var(--x), var(--y)) rotate(360deg);
+    opacity:0;
+    }
+    }
+    
+    /* corazones */
+    .heart{
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:rgba(255,255,255,0.25);
+    transform:rotate(45deg);
+    animation:floatUp linear infinite;
+    }
+    
+    .heart::before,.heart::after{
+    content:"";
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:rgba(255,255,255,0.25);
+    border-radius:50%;
+    }
+    
+    .heart::before{top:-10px;}
+    .heart::after{left:-10px;}
+    
+    @keyframes floatUp{
+    from{transform:translateY(110vh) rotate(45deg);}
+    to{transform:translateY(-10vh) rotate(45deg);opacity:0;}
+    }
+    
+    @media(max-width:700px){
+    .cards{flex-direction:column;align-items:center;}
+    }
+
+    
+    /* MENSAJE OCULTO */
+    #mensaje-secreto{
+    opacity:0;
+    transform:translateY(10px);
+    transition:all 0.6s ease;
+    font-size:1.2rem;
+    color:#b71c1c;
+    font-weight:bold;
+    margin-top:15px;
+    }
+    
+    #mensaje-secreto.visible{
+    opacity:1;
+    transform:translateY(0);
+    }
+    
+    /* cursor para indicar que el girasol es tocable */
+    .sunflower-head{
+    cursor:pointer;
+    }
+    
+    /* LATIDO DEL GIRASOL */
+    .sunflower-head.latido{
+    animation: heartBeat 0.6s ease;
+    }
+    
+    @keyframes heartBeat{
+    0%{ transform:translateX(-50%) scale(1); }
+    25%{ transform:translateX(-50%) scale(1.18); }
+    50%{ transform:translateX(-50%) scale(0.95); }
+    75%{ transform:translateX(-50%) scale(1.12); }
+    100%{ transform:translateX(-50%) scale(1); }
+    }
+
+    /* EXPLOSIÓN DEL GIRASOL */
+.sunflower-head.explotar{
+    animation: explode 0.6s ease forwards;
+    }
+    
+    @keyframes explode{
+    0%{ transform:translateX(-50%) scale(1); opacity:1; }
+    100%{ transform:translateX(-50%) scale(2.5); opacity:0; }
+    }
+    
+    /* REAPARICIÓN */
+    .sunflower-head.reaparecer{
+    animation: reappear 0.8s ease forwards;
+    }
+    
+    @keyframes reappear{
+    0%{ transform:translateX(-50%) scale(0); opacity:0; }
+    100%{ transform:translateX(-50%) scale(1); opacity:1; }
+    }
+
+    /* BRILLO DORADO AL REAPARECER */
+    .sunflower-head.reaparecer{
+    animation: reappear 0.8s ease forwards, goldenGlow 1.2s ease;
+    }
+    
+    /* halo dorado */
+    .sunflower-head::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    transform:translate(-50%,-50%) scale(0);
+    background:radial-gradient(circle, rgba(255,215,0,0.6), rgba(255,215,0,0.25), transparent 70%);
+    pointer-events:none;
+    opacity:0;
+    }
+    
+    .sunflower-head.brillo::after{
+    animation: glowBurst 1.2s ease;
+    }
+    
+    @keyframes goldenGlow{
+    0%{ filter:brightness(1); }
+    50%{ filter:brightness(1.8); }
+    100%{ filter:brightness(1); }
+    }
+    
+    @keyframes glowBurst{
+    0%{ transform:translate(-50%,-50%) scale(0); opacity:0; }
+    40%{ transform:translate(-50%,-50%) scale(1); opacity:1; }
+    100%{ transform:translate(-50%,-50%) scale(1.4); opacity:0; }
+    }
+
+    /* MENSAJE TIPO NUBE */
+.mensaje-nube{
+position:absolute;
+max-width:260px;
+background:white;
+padding:15px 18px;
+border-radius:25px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+font-size:0.95rem;
+line-height:1.4;
+text-align:center;
+opacity:0;
+pointer-events:none;
+transform:translateY(10px) scale(0.9);
+transition:all 0.5s ease;
+}
+
+/* cola de nube */
+.mensaje-nube::after{
+content:"";
+position:absolute;
+bottom:-10px;
+left:50%;
+transform:translateX(-50%);
+border-width:10px;
+border-style:solid;
+border-color:white transparent transparent transparent;
+}
+
+.mensaje-nube.mostrar{
+opacity:1;
+transform:translateY(0) scale(1);
+}
+
+
+.counter-container{
+margin-top:60px;
+margin-bottom:40px;
+}
+
+    
+.sunflower-text{
+  cursor: pointer;
+}
+#girasolBtn:hover{
+  transform: scale(1.2);
+  transition: 0.2s;
+}
+ 
+.btn-musica{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  border:none;
+  border-radius:50%;
+  font-size:28px;
+  background:#fffdf0;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btn-musica:hover{
+  transform:scale(1.15);
+}
